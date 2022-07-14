@@ -1,0 +1,261 @@
+html {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.795);
+  font-family: sans-serif;
+}
+
+.main {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+.title {
+  text-align: center;
+  color: #fff;
+}
+.form {
+  background-color: #fff;
+  padding: 3px;
+  margin-top: 50px;
+}
+.userinput[type="text"] {
+  outline: 0;
+  border: none;
+  font-size: 1.5em;
+  background: #fff;
+  color: #2f4f4f;
+}
+.btn {
+  font-size: 1.5em;
+  color: #53bdff;
+  background-color: rgb(255, 255, 255);
+  outline: 0;
+  border: none;
+  width: 50px;
+  cursor: pointer;
+}
+
+.tasksBoard {
+  display: block;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 40px;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  border-bottom: 1px solid #53bdff;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 1.3em;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+label {
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+#clear {
+  float: right;
+  text-align: right;
+  color: #ff6161;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+#clear:hover {
+  transform: scale(1.1);
+}
+
+.delete {
+  height: 1.5rem;
+}
+
+.delete:hover {
+  transform: scale(1.1);
+}
+
+.task-box {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.strike {
+  text-decoration: line-through;
+  text-decoration-color: white;
+}
+
+/*Priority menu*/
+
+.burger {
+  position: absolute;
+  right: 0;
+  height: 1.6rem;
+}
+
+.burger:hover {
+  transform: scale(1.1);
+}
+.priority-menu {
+  display: none;
+  margin-top: 1em;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  z-index: 1;
+}
+
+.priority-text {
+  text-align: center;
+  margin: 0px 0px 0.5em 0px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+.priority-options {
+  display: flex;
+  border: 1px solid grey;
+  background-color: #303233;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.priority-options a {
+  color: white;
+  font-size: small;
+  padding: 12px 16px;
+  text-decoration: none;
+  flex-grow: 1;
+  text-align: center;
+  border: 1px groove grey;
+  cursor: pointer;
+}
+
+.priority-options a:hover {
+  background-color: rgb(104, 102, 102);
+}
+
+#none {
+  border-bottom: 3px solid rgb(143, 140, 140);
+}
+
+#low {
+  border-bottom: 3px solid green;
+}
+
+.low-border {
+  box-shadow: none;
+}
+
+#medium {
+  border-bottom: 3px solid orange;
+}
+
+#high {
+  border-bottom: 3px solid red;
+}
+
+.show-priorityMenu {
+  display: block;
+}
+
+/*Edit Modal*/
+.edit {
+  position: absolute;
+  right: 1.8em;
+  height: 1.5rem;
+}
+
+.edit:hover {
+  transform: scale(1.1);
+}
+
+.modal {
+  background-color: rgba(117, 110, 110, 0.555);
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  z-index: 10;
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid #53bdff;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.close-modal {
+  position: absolute;
+  right: 2rem;
+  top: 1.2rem;
+  font-size: 2em;
+  width: 50px;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: none;
+}
+
+.title-modal {
+  font-size: 2rem;
+  margin-bottom: 2em;
+  text-align: center;
+  color: white;
+}
+
+.form-modal {
+  text-align: center;
+}
+
+.input-modal {
+  outline: 0;
+  border: none;
+  font-size: 1.5em;
+  background: #fff;
+  color: #2f4f4f;
+  width: 80%;
+}
+.save-modal {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #ff6161;
+  background: none;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  margin: 1em;
+}
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 500px) {
+  .main {
+    margin: auto;
+    width: 100%;
+  }
+  .userinput[type="text"] {
+    width: 80%;
+  }
+}

@@ -1,0 +1,94 @@
+//@version=4
+strategy("BackTest E.M V.1 (con stops)_PRUEBAS", default_qty_type = strategy.percent_of_equity, default_qty_value = 100, initial_capital = 5000, currency = currency.USD)    //Entra con el 100% de la cuenta en todo momento.
+//strategy("-", default_qty_type = strategy.cash, default_qty_value = 5000, currency = currency.USD)     //Entra con 5000 dolares cada operación
+//strategy("-", default_qty_type = strategy.percent_of_equity, default_qty_value = 100)
+
+//STOCH(9,2,4) Amarillo
+periodK = input(9, title="K" , minval=1) //Número de periodos de K
+periodD = input(2, title="D" , minval=1) //Número de periodos de D
+slowingK = input(4, title="Slowing" , minval=1) //Número de periodos de la Ralentización de K 
+
+k = sma(stoch(close, close, close, periodK), slowingK) //Valor de K = media movil simple del stoch de K y de la ralentizacion de K
+d = sma(k, periodD) //Valor de D = media movil simple del valor de K y del número de periodos de D
+
+plot(k, title="%K", color=#F4EB22) //Trazada en el gráfico de K
+plot(d, title="%D", color=#F4EB22) //Trazada en el gráfico de D
+
+
+
+//STOCH(55,4,2) Azul
+periodK1 = input(55, title="K" , minval=1)
+periodD1 = input(4, title="D" , minval=1)
+slowingK1 = input(2, title="Slowing" , minval=1)
+
+k1 = sma(stoch(close, close, close, periodK1), slowingK1)
+d1 = sma(k1, periodD1)
+
+plot(k1, title="%K", color=#34CCD8)
+plot(d1, title="%D", color=#34CCD8)
+
+
+
+//STOCH(34,2,4) Rojo
+periodK2 = input(34, title="K" , minval=1)
+periodD2 = input(2, title="D" , minval=1)
+slowingK2 = input(4, title="slowing" , minval=1)
+
+k2 = sma(stoch(close, close, close, periodK2), slowingK2)
+d2 = sma(k2, periodD2)
+
+plot(k2, title="%K", color=#FF0D00)
+plot(d2, title="%D", color=#FF0D00)
+
+
+
+//BANDS
+band80 = hline(80, color=color.white, title="Banda superior 80")
+band20 = hline(20, color=color.white, title="Banda inferior 20")
+band100 = hline(100, color=color.white, linestyle=hline.style_solid, title="Banda superior 100")
+band0 = hline(0, color=color.white, linestyle=hline.style_solid, title="Banda inferior 0")
+fill(band100, band0, color.new(color.teal, 100))
+fill(band80, band20, color.new(color.teal, 90))
+
+
+
+//DISTANCE Conditions
+distanceYellow_Blue = abs(k - k1)
+distanceYellow_Red = abs(k - k2)
+
+isEnoughDistanceYellow_Blue = distanceYellow_Blue >= 40
+isEnoughDistanceYellow_Red = distanceYellow_Red >= 40
+
+isNegativeDistance = (k - k1) < 0 and (k - k2) < 0
+isPositiveDistance = (k - k1) > 0 and (k - k2) > 0
+
+
+
+//STRATEGY
+entryLong = isEnoughDistanceYellow_Blue and isEnoughDistanceYellow_Red and isNegativeDistance and k1 >= 65 and k2 >= 65
+entryShort = isEnoughDistanceYellow_Blue and isEnoughDistanceYellow_Red and isPositiveDistance and k1 <= 35 and k2 <= 35
+
+closeLong = (k >= 85 and k1 >= 80 and k2 >= 80 and distanceYellow_Blue <= 20 and distanceYellow_Red <= 20) or (k <= 40 and (distanceYellow_Blue <= 10 or distanceYellow_Red <= 10))
+closeShort = (k <= 10 and k1 <= 10 and k2 <= 10 and distanceYellow_Blue <= 10 and distanceYellow_Red <= 10) or (k >= 60 and (distanceYellow_Blue <= 10 or distanceYellow_Red <= 10))
+
+start = timestamp(2019, 2, 24) 
+end = timestamp(2020, 6, 11) 
+//start = timestamp(2020, 10, 13) 
+//end = timestamp(2021, 10, 13) 
+
+if time >= start and time <= end 
+
+
+    strategy.entry("Long", strategy.long, when = entryLong)
+    strategy.entry("Short", strategy.short, when = entryShort)
+
+    
+    
+    strategy.exit("exit", "Long", profit=close*0.16/syminfo.mintick, loss=close*0.05/syminfo.mintick) 
+    strategy.exit("exit", "Short", profit=close*0.16/syminfo.mintick, loss=close*0.09/syminfo.mintick) 
+
+
+    strategy.close("Long", when = closeLong)
+    strategy.close("Short", when = closeShort)
+
+

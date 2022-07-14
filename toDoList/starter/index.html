@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>toDoList</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="body">
+    <div class="main">
+      <h1 class="title">TO-DO LIST</h1>
+      <form class="form" action="index.html" method="post">
+        <input class="userinput" type="text" placeholder="New Task" name="task" />
+        <button type="button" class="btn"><strong>ADD</strong></button>
+      </form>
+      <div class="tasksBoard">
+        <ul class="ul">
+          <!--Esta parte la crea JS con inner html-->
+          <li>
+            <div class="task-box">
+              <img src="DeleteButton.png" class="delete" />
+              <label id="content">${task}</label>
+              <img src="EditButton.png" class="edit" />
+              <img src="BurgerButton.png" class="burger" />
+            </div>
+            <div class="priority-menu">
+              <p class="priority-text">Priority level</p>
+              <div class="priority-options">
+                <a id="none">None</a>
+                <a id="low">Low</a>
+                <a id="medium">Medium</a>
+                <a id="high">High</a>
+              </div>
+            </div>
+          </li>
+          <!--------------------------------------------------->
+        </ul>
+        <a id="clear">Clear</a>
+      </div>
+    </div>
+    <!-- Aqui JS añade el div de la ventana modal-->
+    <div class="overlay hidden"></div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
